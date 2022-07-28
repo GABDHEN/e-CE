@@ -1,1 +1,1 @@
-"# e-Contrìle d'Exploitation (e-CE)" 
+# e-Contr√¥le Exploitation (e-CE)
