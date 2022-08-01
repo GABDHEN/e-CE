@@ -1,3 +1,6 @@
+// ignore_for_file: camel_case_types, prefer_const_constructors, avoid_unnecessary_containers
+
+import 'package:card_settings/card_settings.dart';
 import 'package:flutter/material.dart';
 
 import '../classes/NavigationDrawer.dart';
@@ -31,10 +34,47 @@ class _Avis_controleState extends State<Avis_controle> {
             )
           ],
         ),
-        body: Container(
-            child: Center(
-          child: Text("Avis de contrôle"),
-        )),
+        body: SingleChildScrollView(
+          child: Form(
+            child: CardSettings(
+              children: [
+                CardSettingsSection(
+                  header: CardSettingsHeader(
+                    label: "Avis de Contrôle programme",
+                    labelAlign: TextAlign.center,
+                    color: Colors.blue[900],
+                  ),
+                  children: [
+                    CardSettingsHeader(
+                      label: "Infos Contrôleur",
+                      labelAlign: TextAlign.left,
+                    ),
+                    CardSettingsText(
+                      label: "Matricule Contrôleur",
+                    ),
+                    CardSettingsText(
+                      label: "Agence",
+                    ),
+                    CardSettingsText(
+                      label: "Nom et Prénoms du contrôleur",
+                    ),
+                    CardSettingsHeader(
+                      label: "Rédaction d'avis pour employeur",
+                    ),
+                    /*  CardSettingsListPicker(
+                      label: "Numéro entreprise",
+                      items: [
+                        Container(
+                          child: Text("Ouohhh"),
+                        )
+                      ],
+                    ), */
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
