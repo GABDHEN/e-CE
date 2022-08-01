@@ -1,13 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 class UserInfos {
-  final String Matricule;
+  final String? Matricule;
   final int Codeagence;
-  final String Fonction;
+  final String? Fonction;
   final String Nom;
-  final String Prenom;
-  final String Email;
-  final String Telephone;
+  final String? Prenom;
+  final String? Email;
+  final String? Telephone;
 
   UserInfos({
     required this.Matricule,
