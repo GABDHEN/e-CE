@@ -29,16 +29,38 @@ class _CardslistState extends State<Cardslist> {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            leading: IconButton(
+            /* leading: IconButton(
               onPressed: () => {},
               icon: Icon(widget.icon ?? Icons.remove_red_eye_sharp),
+            ), */
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.titre),
+                Text(
+                  widget.date.substring(0, 10),
+                ),
+              ],
             ),
-            title: Text(widget.titre +
-                "                                       " +
-                widget.date.substring(0, 10)),
-            subtitle: Text(widget.soustitre),
-            //trailing: Text(widget.date.substring(0, 10)),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.soustitre),
+                IconButton(
+                  icon: const Icon(Icons.edit_note_outlined),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Avis_controle(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            onTap: () {},
           ),
+          /*  SizedBox(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -52,9 +74,8 @@ class _CardslistState extends State<Cardslist> {
                   );
                 },
               ),
-              //const Text("Rédiger un avis")
             ],
-          ),
+          ), */
         ],
       ),
     );

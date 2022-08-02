@@ -1,5 +1,4 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors, avoid_unnecessary_containers
-
+// ignore_for_file: camel_case_types, prefer_const_constructors, avoid_unnecessary_containers, unused_local_variable, prefer_const_literals_to_create_immutables
 import 'package:card_settings/card_settings.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +12,12 @@ class Avis_controle extends StatefulWidget {
 }
 
 class _Avis_controleState extends State<Avis_controle> {
+  DateTime date = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
+    String? dropdownvalue = "Listes des numéros CNPS des entreprises";
+    var items = ["Entnum1", "Entnum2", "Entnum3"];
     return SafeArea(
       child: Scaffold(
         drawer: const NavigationDrawer(),
@@ -22,7 +25,7 @@ class _Avis_controleState extends State<Avis_controle> {
           backgroundColor: Colors.orange,
           title: Text('Avis de contrôle'),
           titleTextStyle: TextStyle(
-            color: Color.fromARGB(255, 27, 25, 25),
+            color: Colors.white,
             fontSize: 25,
           ),
           centerTitle: true,
@@ -34,45 +37,165 @@ class _Avis_controleState extends State<Avis_controle> {
             )
           ],
         ),
-        body: SingleChildScrollView(
-          child: Form(
-            child: CardSettings(
-              children: [
-                CardSettingsSection(
-                  header: CardSettingsHeader(
-                    label: "Avis de Contrôle programme",
-                    labelAlign: TextAlign.center,
-                    color: Colors.blue[900],
-                  ),
+        body: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.topLeft,
+                  colors: [Color(0xFF6FC3F7), Color(0xFFC2FDFF)])),
+          child: ListView(
+            padding: EdgeInsets.all(16.0),
+            children: [
+              Text(
+                "Infos du Contrôleur",
+                style: TextStyle(fontSize: 24.0),
+              ),
+              Card(
+                color: Colors.white,
+                elevation: 4.0,
+                child: Column(
                   children: [
-                    CardSettingsHeader(
-                      label: "Infos Contrôleur",
-                      labelAlign: TextAlign.left,
+                    ListTile(
+                      title: Text(
+                        "Matricule du contrôleur",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "M1012",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
                     ),
-                    CardSettingsText(
-                      label: "Matricule Contrôleur",
+                    ListTile(
+                      title: Text(
+                        "Agence",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "Plateau",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
                     ),
-                    CardSettingsText(
-                      label: "Agence",
+                    ListTile(
+                      title: Text(
+                        "Nom et Prénoms du contrôleur",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "Lesky ouohhh",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
                     ),
-                    CardSettingsText(
-                      label: "Nom et Prénoms du contrôleur",
-                    ),
-                    CardSettingsHeader(
-                      label: "Rédaction d'avis pour employeur",
-                    ),
-                    /*  CardSettingsListPicker(
-                      label: "Numéro entreprise",
-                      items: [
-                        Container(
-                          child: Text("Ouohhh"),
-                        )
-                      ],
-                    ), */
                   ],
                 ),
-              ],
-            ),
+              ),
+              Text(
+                "Rédaction d'avis ",
+                style: TextStyle(fontSize: 24.0),
+              ),
+              Card(
+                color: Colors.white,
+                elevation: 4.0,
+                child: Column(
+                  children: [
+                    ListTile(
+                      title: Text(
+                        "Numéro de l'entreprise",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "147589",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Raison sociable",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "ENT 1413",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Effectif salarié",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "100",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Date affectation",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "12/07/2022",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Date retrait",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "_",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Date de passage",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text("${date.day}/${date.month}/${date.year}"),
+                      trailing: IconButton(
+                        icon: Icon(Icons.date_range),
+                        onPressed: () async {
+                          DateTime? newDate = await showDatePicker(
+                            context: context,
+                            initialDate: date,
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime(2100),
+                          );
+                          if (newDate == null) {
+                            return;
+                          } else {
+                            setState(() {
+                              date = newDate;
+                            });
+                          }
+                        },
+                      ),
+                      onTap: () {},
+                    ),
+                    ListTile(
+                      title: Text(
+                        "Date retrait",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      trailing: Text(
+                        "_",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
         ),
       ),

@@ -48,13 +48,6 @@ class _PortefeuilleState extends State<Portefeuille> {
                       date: e.value.DateAffectation!,
                     ))
                 .toList(),
-            // children: [
-            //   Cardslist(),
-            //   SizedBox(
-            //     height: 20,
-            //   ),
-            //   Cardslist(),
-            // ],
           ),
         ),
       ),
