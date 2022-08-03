@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, prefer_const_constructors, avoid_unnecessary_containers, unused_local_variable, prefer_const_literals_to_create_immutables
+// ignore_for_file: camel_case_types, prefer_const_constructors, avoid_unnecessary_containers, unused_local_variable, prefer_const_literals_to_create_immutables, unnecessary_brace_in_string_interps
 import 'package:card_settings/card_settings.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +13,18 @@ class Avis_controle extends StatefulWidget {
 
 class _Avis_controleState extends State<Avis_controle> {
   DateTime date = DateTime.now();
+  String? selectedtime;
+  String dropdownValue = "Civilité du Signataire";
+
+  Future<void> displayTimeDialog() async {
+    final TimeOfDay? time =
+        await showTimePicker(context: context, initialTime: TimeOfDay.now());
+    if (time != null) {
+      setState(() {
+        selectedtime = time.format(context);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,15 +195,38 @@ class _Avis_controleState extends State<Avis_controle> {
                     ),
                     ListTile(
                       title: Text(
-                        "Date retrait",
+                        "Heure de passage",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      trailing: Text(
-                        "_",
-                        style: TextStyle(color: Colors.grey),
+                      subtitle: Text(selectedtime != null
+                          ? '$selectedtime'
+                          : "Selectionner l'heure' svp"),
+                      trailing: IconButton(
+                        icon: Icon(Icons.punch_clock),
+                        onPressed: displayTimeDialog,
                       ),
                       onTap: () {},
                     ),
+                    /*  DropdownButton(
+                      value: dropdownvalue,
+                      items: [
+                        'Madame',
+                        'Monsieur',
+                        'Mademoiselle',
+                      ].map<DropdownMenuItem>(
+                        (String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        },
+                      ).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                    ), */
                   ],
                 ),
               )
