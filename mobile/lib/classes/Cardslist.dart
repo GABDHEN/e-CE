@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_interpolation_to_compose_strings, prefer_const_constructors
+// ignore_for_file: file_names, prefer_interpolation_to_compose_strings, prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/Avis_contr%C3%B4le.dart';

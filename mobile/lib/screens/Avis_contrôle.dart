@@ -49,10 +49,47 @@ class _Avis_controleState extends State<Avis_controle> {
           centerTitle: true,
           elevation: 0,
           actions: [
-            IconButton(
-              onPressed: () => {},
+            PopupMenuButton<int>(
               icon: Icon(Icons.person),
-            )
+              itemBuilder: (context) => [
+                // popupmenu item 1
+                PopupMenuItem(
+                  value: 1,
+                  // row has two child icon and text.
+                  child: Row(
+                    children: [
+                      Icon(Icons.remove_red_eye),
+                      SizedBox(
+                        // sized box with width 10
+                        width: 10,
+                      ),
+                      Text("Profil", style: TextStyle(color: Colors.white))
+                    ],
+                  ),
+                ),
+                // popupmenu item 2
+                PopupMenuItem(
+                  value: 2,
+                  // row has two child icon and text
+                  child: Row(
+                    children: [
+                      Icon(Icons.logout_outlined),
+                      SizedBox(
+                        // sized box with width 10
+                        width: 10,
+                      ),
+                      Text(
+                        "Déconnexion",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+              offset: Offset(0, 60),
+              color: Colors.grey,
+              elevation: 2,
+            ),
           ],
         ),
         body: Container(
