@@ -1,29 +1,26 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_local_variable
+
 import 'package:flutter/material.dart';
-import 'package:mobile/classes/Cardslist.dart';
-import 'package:mobile/models/portefeuilleItem.dart';
-import 'package:mobile/screens/Authscreen.dart';
-import 'package:mobile/screens/profil.dart';
 
 import '../classes/NavigationDrawer.dart';
 
-class Portefeuille extends StatefulWidget {
-  const Portefeuille({Key? key}) : super(key: key);
+class Profil extends StatefulWidget {
+  Profil({Key? key}) : super(key: key);
 
   @override
-  State<Portefeuille> createState() => _PortefeuilleState();
+  State<Profil> createState() => _ProfilState();
 }
 
-class _PortefeuilleState extends State<Portefeuille> {
-  List<PortefeuilleItem> portefeuille = PortefeuilleItem.items();
-
+class _ProfilState extends State<Profil> {
   @override
   Widget build(BuildContext context) {
+    var taille_image = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        drawer: const NavigationDrawer(),
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: Text('Portefeuille Contrôleur'),
+          title: Text('Profil'),
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontSize: 25,
@@ -39,16 +36,14 @@ class _PortefeuilleState extends State<Portefeuille> {
                   value: 1,
                   // row has two child icon and text.
                   child: Row(
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Icon(Icons.remove_red_eye),
                       SizedBox(
                         // sized box with width 10
                         width: 10,
                       ),
-                      Text(
-                        "Profil",
-                        style: TextStyle(color: Colors.white),
-                      )
+                      Text("Profil", style: TextStyle(color: Colors.white))
                     ],
                   ),
                 ),
@@ -57,6 +52,7 @@ class _PortefeuilleState extends State<Portefeuille> {
                   value: 2,
                   // row has two child icon and text
                   child: Row(
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Icon(Icons.logout_outlined),
                       SizedBox(
@@ -74,38 +70,28 @@ class _PortefeuilleState extends State<Portefeuille> {
               offset: Offset(0, 60),
               color: Colors.grey,
               elevation: 2,
-              onSelected: (value) {
-                // if value 1 show dialog
-                if (value == 1) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => Profil(),
-                    ),
-                  );
-                  // if value 2 show dialog
-                } else if (value == 2) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => Authscreen(),
-                    ),
-                  );
-                }
-              },
             ),
           ],
         ),
-        drawer: NavigationDrawer(),
-        body: SingleChildScrollView(
+        body: Container(
+          color: Colors.orange,
+          width: double.infinity,
+          height: 200,
+          //padding: EdgeInsets.only(top: 20.0),
           child: Column(
-            children: portefeuille
-                .asMap()
-                .entries
-                .map((e) => Cardslist(
-                      titre: e.value.RaisonSociale!,
-                      soustitre: e.value.NumEntreprise!,
-                      date: e.value.DateAffectation!,
-                    ))
-                .toList(),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 20.0),
+                height: 150,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/icons.png"),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

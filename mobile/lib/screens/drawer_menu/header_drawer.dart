@@ -23,9 +23,11 @@ class _Header_drawerState extends State<Header_drawer> {
             margin: EdgeInsets.only(bottom: 10.0),
             height: 80,
             decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    image: AssetImage("assets/images/icons.png"))),
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage("assets/images/icons.png"),
+              ),
+            ),
           ),
           Text("Contrôleur d'exploitation",
               style: TextStyle(color: Colors.white, fontSize: 20)),

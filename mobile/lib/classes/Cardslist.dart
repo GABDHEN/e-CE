@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_interpolation_to_compose_strings, prefer_const_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/Avis_contr%C3%B4le.dart';
 
@@ -29,14 +31,36 @@ class _CardslistState extends State<Cardslist> {
           ListTile(
             leading: IconButton(
               onPressed: () => {},
-              icon: Icon(widget.icon ?? Icons.remove_red_eye_sharp),
+              icon: Icon(Icons.apartment_outlined),
             ),
-            title: Text(widget.titre +
-                "                                       " +
-                widget.date.substring(0, 10)),
-            subtitle: Text(widget.soustitre),
-            //trailing: Text(widget.date.substring(0, 10)),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.titre),
+                Text(
+                  widget.date.substring(0, 10),
+                ),
+              ],
+            ),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.soustitre),
+                IconButton(
+                  icon: const Icon(Icons.edit_note_outlined),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => Avis_controle(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            onTap: () {},
           ),
+          /*  SizedBox(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -50,9 +74,8 @@ class _CardslistState extends State<Cardslist> {
                   );
                 },
               ),
-              //const Text("Rédiger un avis")
             ],
-          ),
+          ), */
         ],
       ),
     );

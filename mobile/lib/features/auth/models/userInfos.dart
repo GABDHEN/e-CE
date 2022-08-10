@@ -4,7 +4,7 @@ class UserInfos {
   final String? Matricule;
   final int Codeagence;
   final String? Fonction;
-  final String Nom;
+  final String? Nom;
   final String? Prenom;
   final String? Email;
   final String? Telephone;
