@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/classes/Cardslist.dart';
 import 'package:mobile/models/portefeuilleItem.dart';
 import 'package:mobile/screens/Authscreen.dart';
-import 'package:mobile/screens/profil.dart';
+import 'package:mobile/screens/profil/profil.dart';
 
 import '../classes/NavigationDrawer.dart';
 

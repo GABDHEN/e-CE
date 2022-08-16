@@ -1,8 +1,12 @@
-// ignore_for_file: file_names, prefer_const_constructors, deprecated_member_use, avoid_unnecessary_containers, constant_identifier_names
+// ignore_for_file: file_names, prefer_const_constructors, deprecated_member_use, avoid_unnecessary_containers, constant_identifier_names, unused_import
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:mobile/features/auth/services/auth.service.dart';
 import 'package:mobile/screens/portefeuille.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 //mport 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class Authscreen extends StatefulWidget {
@@ -13,11 +17,12 @@ class Authscreen extends StatefulWidget {
 }
 
 class _AuthscreenState extends State<Authscreen> {
+  late SharedPreferences prefs;
   static const Cnpscolor = Colors.orange; //(0x00193c88);
   bool hiddenpwd = true;
   bool spinner = false;
   final AuthService _authservice = AuthService();
-  final userController = TextEditingController(text: "M1012");
+  final userController = TextEditingController(/* text: "M1012" */);
   final pwdController = TextEditingController(text: "ZERTYUIOP");
   final _formKey = GlobalKey<FormState>();
 
@@ -116,6 +121,8 @@ class _AuthscreenState extends State<Authscreen> {
                                       login: userController.text,
                                       password: pwdController.text)
                                   .then((value) {
+                                print(value);
+                                save(value);
                                 setState(() {
                                   spinner = false;
                                 });
@@ -156,5 +163,11 @@ class _AuthscreenState extends State<Authscreen> {
       hiddenpwd = true;
     }
     setState(() {});
+  }
+
+  save(data) async {
+    prefs = await SharedPreferences.getInstance();
+    print("jsonEncode(data) ${jsonEncode(data)}");
+    prefs.setString("infos", jsonEncode(data));
   }
 }

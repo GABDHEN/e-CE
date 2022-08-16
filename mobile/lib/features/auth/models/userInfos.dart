@@ -21,13 +21,25 @@ class UserInfos {
 
   factory UserInfos.fromJson(Map<String, dynamic> json) {
     return UserInfos(
-        Matricule: json['MATRICULE'],
-        Codeagence: json['CODE_AGENCE'],
-        Fonction: json['LIBELLE_FONCTION_'],
-        Nom: json['NOM'],
-        Prenom: json['PRENOM'],
-        Email: json['EMAIL'],
-        Telephone: json['TELEPHONE_AGENT']);
+        Matricule: json['MATRICULE'] ?? "",
+        Codeagence: json['CODE_AGENCE'] ?? "",
+        Fonction: json['LIBELLE_FONCTION_'] ?? "",
+        Nom: json['NOM'] ?? "",
+        Prenom: json['PRENOM'] ?? "",
+        Email: json['EMAIL'] ?? "",
+        Telephone: json['TELEPHONE_AGENT'] ?? "");
+  }
+
+  Map toJson() {
+    return {
+      "MATRICULE": Matricule,
+      "CODE_AGENCE": Codeagence,
+      "LIBELLE_FONCTION_": Fonction,
+      "NOM": Nom,
+      "PRENOM": Prenom,
+      "EMAIL": Email,
+      "TELEPHONE_AGENT": Telephone
+    };
   }
 
   factory UserInfos.fromJsonList2(List<dynamic> jsonList) {

@@ -1,8 +1,14 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_local_variable
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_local_variable, avoid_unnecessary_containers, avoid_print
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:mobile/features/auth/models/userInfos.dart';
+import 'package:mobile/screens/profil/widgets/profilcontaineritem.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../classes/NavigationDrawer.dart';
+import '../../classes/NavigationDrawer.dart';
 
 class Profil extends StatefulWidget {
   Profil({Key? key}) : super(key: key);
@@ -12,6 +18,24 @@ class Profil extends StatefulWidget {
 }
 
 class _ProfilState extends State<Profil> {
+  late SharedPreferences prefs;
+  String userController = ""; /* TextEditingController(/* text: "M1012" */) */
+  late UserInfos userInfos;
+
+  @override
+  void initState() {
+    super.initState();
+    retrieve().then(
+      (value) {
+        setState(
+          () {
+            userInfos = value;
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var taille_image = MediaQuery.of(context).size;
@@ -74,21 +98,49 @@ class _ProfilState extends State<Profil> {
           ],
         ),
         body: Container(
-          color: Colors.orange,
+          /* color: Colors.orange,
           width: double.infinity,
-          height: 200,
+          height: 200, */
           //padding: EdgeInsets.only(top: 20.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 20.0),
-                height: 150,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/icons.png"),
-                  ),
+                child: Column(
+                  children: [
+                    ClipPath(
+                      clipper: OvalBottomBorderClipper(),
+                      child: Container(
+                        height: 200,
+                        color: Colors.orange,
+                        child: Center(
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 20.0),
+                            height: 150,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/personxy.png"),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Card(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: Text("Matricule"),
+                            trailing: Text(userInfos.Matricule!),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -96,5 +148,13 @@ class _ProfilState extends State<Profil> {
         ),
       ),
     );
+  }
+
+  Future<UserInfos> retrieve() async {
+    prefs = await SharedPreferences.getInstance();
+    var temp = prefs.getString("infos");
+    var res = jsonDecode(temp!);
+
+    return UserInfos.fromJson(res);
   }
 }
