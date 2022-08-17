@@ -8,6 +8,8 @@ import '../models/civilite_dirigeant.dart';
 import '../models/civilite_signataire.dart';
 import '../models/titre_dirigeant.dart';
 import '../models/titre_signataire.dart';
+import 'Authscreen.dart';
+import 'profil/profil.dart';
 
 class Avis_controle extends StatefulWidget {
   const Avis_controle({Key? key}) : super(key: key);
@@ -41,7 +43,7 @@ class _Avis_controleState extends State<Avis_controle> {
         drawer: const NavigationDrawer(),
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: Text('Avis de contrôle'),
+          title: Text('Portefeuille Contrôleur'),
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontSize: 25,
@@ -63,7 +65,10 @@ class _Avis_controleState extends State<Avis_controle> {
                         // sized box with width 10
                         width: 10,
                       ),
-                      Text("Profil", style: TextStyle(color: Colors.white))
+                      Text(
+                        "Profil",
+                        style: TextStyle(color: Colors.white),
+                      )
                     ],
                   ),
                 ),
@@ -89,6 +94,23 @@ class _Avis_controleState extends State<Avis_controle> {
               offset: Offset(0, 60),
               color: Colors.grey,
               elevation: 2,
+              onSelected: (value) {
+                // if value 1 show dialog
+                if (value == 1) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Profil(),
+                    ),
+                  );
+                  // if value 2 show dialog
+                } else if (value == 2) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Authscreen(),
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),

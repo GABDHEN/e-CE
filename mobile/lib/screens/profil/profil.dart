@@ -1,14 +1,15 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_local_variable, avoid_unnecessary_containers, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, non_constant_identifier_names, unused_local_variable, avoid_unnecessary_containers, avoid_print, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:mobile/features/auth/models/userInfos.dart';
-import 'package:mobile/screens/profil/widgets/profilcontaineritem.dart';
+//import 'package:mobile/screens/profil/widgets/profilcontaineritem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../classes/NavigationDrawer.dart';
+import '../Authscreen.dart';
 
 class Profil extends StatefulWidget {
   Profil({Key? key}) : super(key: key);
@@ -19,7 +20,6 @@ class Profil extends StatefulWidget {
 
 class _ProfilState extends State<Profil> {
   late SharedPreferences prefs;
-  String userController = ""; /* TextEditingController(/* text: "M1012" */) */
   late UserInfos userInfos;
 
   @override
@@ -44,7 +44,7 @@ class _ProfilState extends State<Profil> {
         drawer: const NavigationDrawer(),
         appBar: AppBar(
           backgroundColor: Colors.orange,
-          title: Text('Profil'),
+          title: Text('Portefeuille Contrôleur'),
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontSize: 25,
@@ -60,14 +60,16 @@ class _ProfilState extends State<Profil> {
                   value: 1,
                   // row has two child icon and text.
                   child: Row(
-                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Icon(Icons.remove_red_eye),
                       SizedBox(
                         // sized box with width 10
                         width: 10,
                       ),
-                      Text("Profil", style: TextStyle(color: Colors.white))
+                      Text(
+                        "Profil",
+                        style: TextStyle(color: Colors.white),
+                      )
                     ],
                   ),
                 ),
@@ -76,7 +78,6 @@ class _ProfilState extends State<Profil> {
                   value: 2,
                   // row has two child icon and text
                   child: Row(
-                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Icon(Icons.logout_outlined),
                       SizedBox(
@@ -94,6 +95,23 @@ class _ProfilState extends State<Profil> {
               offset: Offset(0, 60),
               color: Colors.grey,
               elevation: 2,
+              onSelected: (value) {
+                // if value 1 show dialog
+                if (value == 1) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Profil(),
+                    ),
+                  );
+                  // if value 2 show dialog
+                } else if (value == 2) {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Authscreen(),
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),
@@ -101,7 +119,7 @@ class _ProfilState extends State<Profil> {
           /* color: Colors.orange,
           width: double.infinity,
           height: 200, */
-          //padding: EdgeInsets.only(top: 20.0),
+          //padding: EdgeInsets.only18op: 20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -128,14 +146,260 @@ class _ProfilState extends State<Profil> {
                       ),
                     ),
                     SizedBox(
-                      height: 25,
-                    ),
-                    Card(
                       child: Column(
                         children: [
-                          ListTile(
-                            leading: Text("Matricule"),
-                            trailing: Text(userInfos.Matricule!),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                              width: 1.0,
+                              color: Colors.black26,
+                            ))),
+                            child: Padding(
+                              padding: EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        Icons.apartment_outlined,
+                                        color: Colors.blue,
+                                      )
+                                    ],
+                                  ),
+                                  // Column(
+                                  //   // ignore: prefer_const_literals_to_create_immutables
+                                  //   children: [
+                                  //     Text(
+                                  //       "CODE AGENCE",
+                                  //       style: TextStyle(
+                                  //           fontWeight: FontWeight.bold),
+                                  //     )
+                                  //   ],
+                                  // ),
+                                  Column(
+                                    children: [
+                                      Text(userInfos.Codeagence.toString()
+                                          .trim())
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [Text("")],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                              width: 1.0,
+                              color: Colors.black26,
+                            ))),
+                            child: Padding(
+                              padding: EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        Icons.person_pin_sharp,
+                                        color: Colors.green,
+                                      )
+                                    ],
+                                  ),
+                                  // Column(
+                                  //   // ignore: prefer_const_literals_to_create_immutables
+                                  //   children: [
+                                  //     Text(
+                                  //       "MATRICULE",
+                                  //       style: TextStyle(
+                                  //           fontWeight: FontWeight.bold),
+                                  //     )
+                                  //   ],
+                                  // ),
+                                  Column(
+                                    children: [
+                                      Text(userInfos.Matricule!.trim())
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [Text("")],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                              width: 1.0,
+                              color: Colors.black26,
+                            ))),
+                            child: Padding(
+                              padding: EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        Icons.person,
+                                        color: Colors.yellow,
+                                      )
+                                    ],
+                                  ),
+                                  // Column(
+                                  //   // ignore: prefer_const_literals_to_create_immutables
+                                  //   children: [
+                                  //     Text(
+                                  //       "NOM",
+                                  //       style: TextStyle(
+                                  //           fontWeight: FontWeight.bold),
+                                  //     )
+                                  //   ],
+                                  // ),
+                                  Column(
+                                    children: [Text(userInfos.Nom!.trim())],
+                                  ),
+                                  Column(
+                                    children: [Text("")],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                              width: 1.0,
+                              color: Colors.black26,
+                            ))),
+                            child: Padding(
+                              padding: EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        Icons.person_outline,
+                                        color: Colors.orange,
+                                      )
+                                    ],
+                                  ),
+                                  // Column(
+                                  //   // ignore: prefer_const_literals_to_create_immutables
+                                  //   children: [
+                                  //     Text(
+                                  //       "PRENOMS",
+                                  //       style: TextStyle(
+                                  //           fontWeight: FontWeight.bold),
+                                  //     )
+                                  //   ],
+                                  // ),
+                                  Column(
+                                    children: [Text(userInfos.Prenom!.trim())],
+                                  ),
+                                  Column(
+                                    children: [Text("")],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                              width: 1.0,
+                              color: Colors.black26,
+                            ))),
+                            child: Padding(
+                              padding: EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        Icons.mail_sharp,
+                                        color: Colors.blue,
+                                      )
+                                    ],
+                                  ),
+                                  // Column(
+                                  //   // ignore: prefer_const_literals_to_create_immutables
+                                  //   children: [
+                                  //     Text(
+                                  //       "EMAIL",
+                                  //       style: TextStyle(
+                                  //           fontWeight: FontWeight.bold),
+                                  //     )
+                                  //   ],
+                                  // ),
+                                  Column(
+                                    children: [Text(userInfos.Email!.trim())],
+                                  ),
+                                  Column(
+                                    children: [Text("")],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                              width: 1.0,
+                              color: Colors.black26,
+                            ))),
+                            child: Padding(
+                              padding: EdgeInsets.all(18.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Icon(
+                                        Icons.phone_android,
+                                        color: Colors.green,
+                                      )
+                                    ],
+                                  ),
+                                  // Column(
+                                  //   // ignore: prefer_const_literals_to_create_immutables
+                                  //   children: [
+                                  //     Text(
+                                  //       "TELEPHONNE",
+                                  //       style: TextStyle(
+                                  //           fontWeight: FontWeight.bold),
+                                  //     )
+                                  //   ],
+                                  // ),
+                                  Column(
+                                    children: [
+                                      Text(userInfos.Telephone!.trim())
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [Text("")],
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       ),
