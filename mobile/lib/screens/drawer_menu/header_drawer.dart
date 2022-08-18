@@ -12,7 +12,13 @@ class _Header_drawerState extends State<Header_drawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.orange,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.topLeft,
+          colors: [Color(0xFFF9D976), Color(0xFFF39F86)],
+        ),
+      ),
       width: double.infinity,
       height: 200,
       padding: EdgeInsets.only(top: 20.0),

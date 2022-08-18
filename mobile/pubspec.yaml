@@ -40,6 +40,8 @@ dependencies:
   card_settings: ^3.0.1
   dropdown_button2: ^1.7.1
   shared_preferences: ^2.0.15
+  flutter_svg: ^1.1.4
+  new_gradient_app_bar: ^0.2.0
 
 dev_dependencies:
   flutter_test:

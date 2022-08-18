@@ -41,6 +41,11 @@ class _ProfilState extends State<Profil> {
     var taille_image = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        // floatingActionButton: FloatingActionButton(
+        //   child: Icon(Icons.access_alarm),
+        //   onPressed: () {},
+        // ),
         drawer: const NavigationDrawer(),
         appBar: AppBar(
           backgroundColor: Colors.orange,

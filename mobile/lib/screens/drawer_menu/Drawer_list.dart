@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/Avis_contr%C3%B4le.dart';
 import 'package:mobile/screens/Param%C3%A8tres.dart';

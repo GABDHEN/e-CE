@@ -3,6 +3,8 @@
 import 'package:card_settings/card_settings.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/screens/test.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import '../classes/NavigationDrawer.dart';
 import '../models/civilite_dirigeant.dart';
 import '../models/civilite_signataire.dart';
@@ -41,13 +43,16 @@ class _Avis_controleState extends State<Avis_controle> {
     return SafeArea(
       child: Scaffold(
         drawer: const NavigationDrawer(),
-        appBar: AppBar(
-          backgroundColor: Colors.orange,
-          title: Text('Portefeuille Contrôleur'),
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-          ),
+        appBar: NewGradientAppBar(
+          gradient:
+              LinearGradient(colors: [Color(0xFFde7c0f), Color(0xFFde7c0f)]),
+
+          // backgroundColor: Colors.orange,
+          title: Text('Avis De Contrôle'),
+          // titleTextStyle: TextStyle(
+          //   color: Colors.white,
+          //   fontSize: 25,
+          // ),
           centerTitle: true,
           elevation: 0,
           actions: [
@@ -59,6 +64,7 @@ class _Avis_controleState extends State<Avis_controle> {
                   value: 1,
                   // row has two child icon and text.
                   child: Row(
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Icon(Icons.remove_red_eye),
                       SizedBox(
@@ -77,6 +83,7 @@ class _Avis_controleState extends State<Avis_controle> {
                   value: 2,
                   // row has two child icon and text
                   child: Row(
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Icon(Icons.logout_outlined),
                       SizedBox(
@@ -99,7 +106,7 @@ class _Avis_controleState extends State<Avis_controle> {
                 if (value == 1) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => Profil(),
+                      builder: (context) => Test(),
                     ),
                   );
                   // if value 2 show dialog
@@ -115,13 +122,14 @@ class _Avis_controleState extends State<Avis_controle> {
           ],
         ),
         body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.topLeft,
-              colors: [Color(0xFF6FC3F7), Color(0xFFC2FDFF)],
-            ),
-          ),
+          color: Color(0xFFffe4c4),
+          // decoration: BoxDecoration(
+          //   gradient: LinearGradient(
+          //     begin: Alignment.topRight,
+          //     end: Alignment.topLeft,
+          //     colors: [Color(0xFFF9D976), Color(0xFFF39F86)],
+          //   ),
+          // ),
           child: ListView(
             padding: EdgeInsets.all(16.0),
             children: [

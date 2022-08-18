@@ -4,6 +4,8 @@ import 'package:mobile/classes/Cardslist.dart';
 import 'package:mobile/models/portefeuilleItem.dart';
 import 'package:mobile/screens/Authscreen.dart';
 import 'package:mobile/screens/profil/profil.dart';
+import 'package:mobile/screens/test.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 
 import '../classes/NavigationDrawer.dart';
 
@@ -21,13 +23,16 @@ class _PortefeuilleState extends State<Portefeuille> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.orange,
+        appBar: NewGradientAppBar(
+          gradient:
+              LinearGradient(colors: [Color(0xFFde7c0f), Color(0xFFde7c0f)]),
+
+          // backgroundColor: Colors.orange,
           title: Text('Portefeuille Contrôleur'),
-          titleTextStyle: TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-          ),
+          // titleTextStyle: TextStyle(
+          //   color: Colors.white,
+          //   fontSize: 25,
+          // ),
           centerTitle: true,
           elevation: 0,
           actions: [
@@ -39,6 +44,7 @@ class _PortefeuilleState extends State<Portefeuille> {
                   value: 1,
                   // row has two child icon and text.
                   child: Row(
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Icon(Icons.remove_red_eye),
                       SizedBox(
@@ -57,6 +63,7 @@ class _PortefeuilleState extends State<Portefeuille> {
                   value: 2,
                   // row has two child icon and text
                   child: Row(
+                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Icon(Icons.logout_outlined),
                       SizedBox(
@@ -79,7 +86,7 @@ class _PortefeuilleState extends State<Portefeuille> {
                 if (value == 1) {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => Profil(),
+                      builder: (context) => Test(),
                     ),
                   );
                   // if value 2 show dialog
