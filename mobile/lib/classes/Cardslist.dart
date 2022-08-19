@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mobile/screens/Avis_contr%C3%B4le.dart';
+import 'package:mobile/test/backend_portefeuille.dart';
 
 class Cardslist extends StatefulWidget {
   final String titre;
@@ -60,22 +61,6 @@ class _CardslistState extends State<Cardslist> {
             ),
             onTap: () {},
           ),
-          /*  SizedBox(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.edit_note_outlined),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => Avis_controle(),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ), */
         ],
       ),
     );

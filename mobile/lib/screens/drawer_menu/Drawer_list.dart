@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/screens/Avis_contr%C3%B4le.dart';
 import 'package:mobile/screens/Param%C3%A8tres.dart';
 import 'package:mobile/screens/portefeuille.dart';
+import 'package:mobile/test/backend_portefeuille.dart';
 
 class Drawer_list extends StatefulWidget {
   Drawer_list({Key? key}) : super(key: key);
@@ -50,7 +51,7 @@ class _Drawer_listState extends State<Drawer_list> {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Parametres(),
+                  builder: (context) => backend_portefeuille(),
                 ),
               );
             },

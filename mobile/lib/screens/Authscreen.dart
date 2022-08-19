@@ -1,8 +1,9 @@
-// ignore_for_file: file_names, prefer_const_constructors, deprecated_member_use, avoid_unnecessary_containers, constant_identifier_names, unused_import
+// ignore_for_file: file_names, prefer_const_constructors, deprecated_member_use, avoid_unnecessary_containers, constant_identifier_names, unused_import, non_constant_identifier_names
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:mobile/features/auth/models/portefeuilleTotal.dart';
 import 'package:mobile/features/auth/services/auth.service.dart';
 import 'package:mobile/screens/portefeuille.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,7 @@ class Authscreen extends StatefulWidget {
 
 class _AuthscreenState extends State<Authscreen> {
   late SharedPreferences prefs;
+  late SharedPreferences prefs_porte;
   static const Cnpscolor = Colors.orange; //(0x00193c88);
   bool hiddenpwd = true;
   bool spinner = false;
@@ -115,6 +117,7 @@ class _AuthscreenState extends State<Authscreen> {
                             if (_formKey.currentState!.validate() && !spinner) {
                               setState(() {
                                 spinner = true;
+                                save_portefeuille(PortefeuilleTotal);
                               });
                               _authservice
                                   .authentication(
@@ -123,6 +126,7 @@ class _AuthscreenState extends State<Authscreen> {
                                   .then((value) {
                                 print(value);
                                 save(value);
+
                                 setState(() {
                                   spinner = false;
                                 });
@@ -169,5 +173,11 @@ class _AuthscreenState extends State<Authscreen> {
     prefs = await SharedPreferences.getInstance();
     print("jsonEncode(data) ${jsonEncode(data)}");
     prefs.setString("infos", jsonEncode(data));
+  }
+
+  save_portefeuille(data) async {
+    prefs_porte = await SharedPreferences.getInstance();
+    print("jsonEncode(data) ${jsonEncode(data)}");
+    prefs_porte.setString("porte", jsonEncode(data));
   }
 }
