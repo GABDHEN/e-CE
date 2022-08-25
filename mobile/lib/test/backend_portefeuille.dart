@@ -37,7 +37,7 @@ Future<List<PORTEFEUILLE>> fetchPortefeuille({required String login}) async {
 
   try {
     if (response.body == login) {
-      List jsonResponse = json.decode(response.body);
+      List responseJson = json.decode(response.body);
     }
 
     return responseJson

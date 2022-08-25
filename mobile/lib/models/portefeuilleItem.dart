@@ -5,19 +5,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PortefeuilleItem {
   String? Matricule;
-  int? NumeroEntreprise;
+  int NumeroEntreprise;
   DateTime? DateAffectation;
-  int? AnneeControle;
-  int? CodeAgence;
+  int AnneeControle;
+  int CodeAgence;
   String? ConsPar;
   String? Origine;
 
   PortefeuilleItem({
     this.Matricule,
-    this.NumeroEntreprise,
+    required this.NumeroEntreprise,
     this.DateAffectation,
-    this.AnneeControle,
-    this.CodeAgence,
+    required this.AnneeControle,
+    required this.CodeAgence,
     this.ConsPar,
     this.Origine,
   });

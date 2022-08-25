@@ -2,12 +2,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/classes/Cardslist.dart';
+//import 'package:mobile/classes/Cardslist.dart';
 import 'package:mobile/features/auth/models/portefeuilleTotal.dart';
-import 'package:mobile/models/portefeuilleItem.dart';
-import 'package:mobile/models/profilitem.dart';
+//import 'package:mobile/models/portefeuilleItem.dart';
+//import 'package:mobile/models/profilitem.dart';
 import 'package:mobile/screens/Authscreen.dart';
-import 'package:mobile/screens/profil/profil.dart';
+//import 'package:mobile/screens/profil/profil.dart';
 import 'package:mobile/screens/test.dart';
 import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,25 +22,26 @@ class Portefeuille extends StatefulWidget {
 }
 
 class _PortefeuilleState extends State<Portefeuille> {
-  @override
   late SharedPreferences prefs_porte;
   late PortefeuilleTotal portefeuilleTotal;
+
   // List<PortefeuilleItem> portefeuille = PortefeuilleItem.items();
 
   @override
   void initState() {
-    super.initState();
     retrieve().then(
-      (PortefeuilleTotal) {
+      (value) {
         setState(
           () {
-            portefeuilleTotal = portefeuilleTotal;
+            portefeuilleTotal = value;
           },
         );
       },
     );
+    super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -138,14 +139,14 @@ class _PortefeuilleState extends State<Portefeuille> {
                   children: [
                     Text(portefeuilleTotal.NUMERO_ENTREPRISE.toString()),
                     Text(
-                      portefeuilleTotal.DATE_AFFECTATION.toString(),
+                      portefeuilleTotal.DATE_AFFECTATION.toString().trim(),
                     ),
                   ],
                 ),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(portefeuilleTotal.CONS_PAR.toString()),
+                    Text(portefeuilleTotal.CONS_PAR.toString().trim()),
                     IconButton(
                       icon: const Icon(Icons.edit_note_outlined),
                       onPressed: () {
@@ -169,7 +170,10 @@ class _PortefeuilleState extends State<Portefeuille> {
 
   Future<PortefeuilleTotal> retrieve() async {
     prefs_porte = await SharedPreferences.getInstance();
+    // var user = prefs_porte.getString("infos");
+    // print("user $user");
     var temps = prefs_porte.getString("porte");
+    print("temps $temps");
     var rese = jsonDecode(temps!);
 
     return PortefeuilleTotal.fromJson(rese);

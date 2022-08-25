@@ -1,11 +1,13 @@
-// ignore_for_file: file_names, prefer_const_constructors, deprecated_member_use, avoid_unnecessary_containers, constant_identifier_names, unused_import, non_constant_identifier_names
+// ignore_for_file: file_names, prefer_const_constructors, deprecated_member_use, avoid_unnecessary_containers, constant_identifier_names, unused_import, non_constant_identifier_names, unused_field
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:mobile/features/auth/models/portefeuilleTotal.dart';
 import 'package:mobile/features/auth/services/auth.service.dart';
+import 'package:mobile/features/auth/services/portefeuille.service.dart';
 import 'package:mobile/screens/portefeuille.dart';
+import 'package:mobile/test/backend_portefeuille.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //mport 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -24,6 +26,7 @@ class _AuthscreenState extends State<Authscreen> {
   bool hiddenpwd = true;
   bool spinner = false;
   final AuthService _authservice = AuthService();
+  final PortefeuilleService _portefeuilleService = PortefeuilleService();
   final userController = TextEditingController(/* text: "M1012" */);
   final pwdController = TextEditingController(text: "ZERTYUIOP");
   final _formKey = GlobalKey<FormState>();
@@ -117,14 +120,23 @@ class _AuthscreenState extends State<Authscreen> {
                             if (_formKey.currentState!.validate() && !spinner) {
                               setState(() {
                                 spinner = true;
-                                save_portefeuille(PortefeuilleTotal);
                               });
+                              _portefeuilleService
+                                  .portefeuille(
+                                login: userController.text,
+                              )
+                                  .then(
+                                ((value) {
+                                  //print(value);
+                                  save_portefeuille(value);
+                                }),
+                              );
                               _authservice
                                   .authentication(
                                       login: userController.text,
                                       password: pwdController.text)
                                   .then((value) {
-                                print(value);
+                                //print(value);
                                 save(value);
 
                                 setState(() {
@@ -171,13 +183,13 @@ class _AuthscreenState extends State<Authscreen> {
 
   save(data) async {
     prefs = await SharedPreferences.getInstance();
-    print("jsonEncode(data) ${jsonEncode(data)}");
+    //print("jsonEncode(data) ${jsonEncode(data)}");
     prefs.setString("infos", jsonEncode(data));
   }
 
-  save_portefeuille(data) async {
+  save_portefeuille(value) async {
     prefs_porte = await SharedPreferences.getInstance();
-    print("jsonEncode(data) ${jsonEncode(data)}");
-    prefs_porte.setString("porte", jsonEncode(data));
+    //print("jsonEncode(data) ${jsonEncode(data)}");
+    prefs_porte.setString("porte", jsonEncode(value));
   }
 }
