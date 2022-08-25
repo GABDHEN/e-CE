@@ -30,32 +30,28 @@ import 'package:mobile/features/auth/execptions/authexception.dart';
 //   }
 // }
 
-Future<List<PORTEFEUILLE>> fetchPortefeuille({required String login}) async {
+Future<PORTEFEUILLE> fetchPortefeuille({required String login}) async {
   final body = {"CODE_AGENCE": "1", "MATRICULE": login};
-  final response = await http.post(Uri.parse(portUri), body: body);
-  final responseJson = jsonDecode(response.body);
+  final response = await http.post(Uri.parse(portUri));
+  //final responseJson = jsonDecode(response.body);
 
-  try {
-    if (response.body == login) {
-      List responseJson = json.decode(response.body);
-    }
-
-    return responseJson
-        .map((PORTEFEUILLE) => PORTEFEUILLE.fromJson(PORTEFEUILLE))
-        .toList();
-  } catch (e) {
-    throw AuthException(errorMessage: e.toString());
+  if (response.statusCode == 200) {
+    return PORTEFEUILLE.fromJson(jsonDecode(response.body));
+    // List jsonResponse = json.decode(response.body);
+    // return jsonResponse.map((data) => PORTEFEUILLE.fromJson(data)).toList();
+  } else {
+    throw AuthException(errorMessage: response.toString());
   }
 }
 
 class PORTEFEUILLE {
-  final String MATRICULE;
-  final int NUMERO_ENTREPRISE;
-  final DateTime DATE_AFFECTATION;
-  final int ANNEE_CONTROLE;
-  final int CODE_AGENCE;
-  final String CONS_PAR;
-  final String ORIGINE;
+  final String? MATRICULE;
+  final int? NUMERO_ENTREPRISE;
+  final DateTime? DATE_AFFECTATION;
+  final int? ANNEE_CONTROLE;
+  final int? CODE_AGENCE;
+  final String? CONS_PAR;
+  final String? ORIGINE;
 
   PORTEFEUILLE(
       {required this.MATRICULE,
@@ -68,13 +64,17 @@ class PORTEFEUILLE {
 
   factory PORTEFEUILLE.fromJson(Map<String, dynamic> json) {
     return PORTEFEUILLE(
-        MATRICULE: json['MATRICULE'] ?? "",
-        NUMERO_ENTREPRISE: json['NUMERO_ENTREPRISE'] ?? "",
-        DATE_AFFECTATION: json['DATE_AFFECTATION'] ?? "",
-        ANNEE_CONTROLE: json['ANNEE_CONTROLE'] ?? "",
-        CODE_AGENCE: json['CODE_AGENCE'] ?? "",
-        CONS_PAR: json['CONS_PAR'] ?? "",
-        ORIGINE: json['ORIGINE'] ?? "");
+      MATRICULE: json['MATRICULE'] ?? "",
+      NUMERO_ENTREPRISE: json['NUMERO_ENTREPRISE']
+          ? int.parse(json['NUMERO_ENTREPRISE'])
+          : null,
+      DATE_AFFECTATION: json['DATE_AFFECTATION'] ?? "",
+      ANNEE_CONTROLE:
+          json['ANNEE_CONTROLE'] ? int.parse(json['ANNEE_CONTROLE']) : null,
+      CODE_AGENCE: json['CODE_AGENCE'] ? int.parse(json['CODE_AGENCE']) : null,
+      CONS_PAR: json['CONS_PAR'] ?? "",
+      ORIGINE: json['ORIGINE'] ?? "",
+    );
   }
 }
 
@@ -88,12 +88,12 @@ class backend_portefeuille extends StatefulWidget {
 }
 
 class _backend_portefeuilleState extends State<backend_portefeuille> {
-  late Future<List<PORTEFEUILLE>> portefeuilleData;
+  late Future<PORTEFEUILLE> portefeuilleData;
 
   @override
   void initState() {
     super.initState();
-    portefeuilleData = fetchPortefeuille(login: "MATRICULE");
+    portefeuilleData = fetchPortefeuille(login: 'M1012');
   }
 
   @override
@@ -105,28 +105,17 @@ class _backend_portefeuilleState extends State<backend_portefeuille> {
           title: Text('Flutter ListView'),
         ),
         body: Center(
-          child: FutureBuilder<List<PORTEFEUILLE>>(
+          child: FutureBuilder<PORTEFEUILLE>(
             future: portefeuilleData,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                List<PORTEFEUILLE>? data = snapshot.data;
-                return ListView.builder(
-                    itemCount: data?.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      // final item = items[index];
-                      return Container(
-                        height: 75,
-                        color: Colors.white,
-                        child: Center(
-                          child: Text(data![index].MATRICULE),
-                        ),
-                      );
-                    });
+                return Text(snapshot.data!.MATRICULE.toString());
               } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
+                return Text('${snapshot.error}');
               }
-              // By default show a loading spinner.
-              return CircularProgressIndicator();
+
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
             },
           ),
         ),
